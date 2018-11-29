@@ -1,12 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {createStore, applyMiddleware, compose} from 'redux'
+// redux 默认只处理同步，异步任务需要安装插件 react-thunk
+// 然后使用applyMiddleware开启chunk中间件
+import thunk from 'redux-thunk'
+import React from "react"
+import {useState} from 'react'
+import {Provider} from 'react-redux'
+import ReactDOM from "react-dom"
+import App from './App'
+import counter from './index.redux'
+import {add, remove, addAsync} from './index.redux'
 
-ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// const TestHook = () => {
+//   const [count, setCount] = useState(9)
+//   return (
+//     <div>
+//         {count}
+//         <button onClick={()=>{setCount(count + 1)}}>+</button>
+//         <button onClick={()=>{setCount(count - 1)}}>-</button>
+//     </div>
+//   )
+// }
+
+const store = createStore(counter, compose(
+  applyMiddleware(thunk),
+  window.devToolsExtension ? window.devToolsExtension() : f=>f
+))
+
+function render(){
+  ReactDOM.render(
+    <App store={store} add={add} remove={remove} addAsync={addAsync}/>,
+    // <TestHook></TestHook>,
+    document.getElementById('root')
+  )
+}
+
+render()
+store.subscribe(render)
+
+
+
+
+
+
+

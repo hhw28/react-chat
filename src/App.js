@@ -1,50 +1,18 @@
-import React, { Component } from 'react'
-import './App.css'
-import {Button, List} from 'antd-mobile'
-import 'antd-mobile/dist/antd-mobile.css'
+import React from 'react'
 
-class App extends Component {
-  render() {
+class App extends React.Component{
+  render(){
+    const store = this.props.store
+    const num = store.getState()
+    const add = this.props.add
+    const remove = this.props.remove
+    const addAsync = this.props.addAsync
     return (
       <div>
-        <h1>hello world</h1>
-        <Bpp bb="good"></Bpp>
-        <Cpp cc="night"></Cpp>
-      </div>
-    )
-  }
-}
-
-function Cpp(props){
-  return <h1>good, {props.cc}</h1>
-}
-
-class Bpp extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      list: ['aa', 'bb', 'cc']
-    }
-    this.addItem = this.addItem.bind(this)
-  }
-  addItem(){
-    console.log(111)
-    this.setState({
-      list: [...this.state.list, 'abc '+Math.random()]
-    })
-  }
-  render() {
-    return (
-      <div>
-        <h1>2018, {this.props.bb}</h1>
-        <Button type="primary" onClick={this.addItem}>add</Button>
-        <List renderHeader = {() => '列表'}>
-          {this.state.list.map(item => {
-            return (
-              <List.Item key={item}>{item}</List.Item>
-            )
-          })}
-        </List>
+        <button onClick={()=>{store.dispatch(add())}}>+</button>
+        <button onClick={()=>{store.dispatch(remove())}}>-</button>
+        <button onClick={()=>{store.dispatch(addAsync())}}>+ 1s</button>
+        <p>现在数字是{num}</p>
       </div>
     )
   }
