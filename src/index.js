@@ -3,12 +3,12 @@ import {createStore, applyMiddleware, compose} from 'redux'
 // 然后使用applyMiddleware开启chunk中间件
 import thunk from 'redux-thunk'
 import React from "react"
-import {useState} from 'react'
+// import {useState} from 'react'
 import {Provider} from 'react-redux'
 import ReactDOM from "react-dom"
 import App from './App'
 import counter from './index.redux'
-import {add, remove, addAsync} from './index.redux'
+
 
 
 // const TestHook = () => {
@@ -29,7 +29,9 @@ const store = createStore(counter, compose(
 
 function render(){
   ReactDOM.render(
-    <App store={store} add={add} remove={remove} addAsync={addAsync}/>,
+    (<Provider store={store}>
+      <App />
+    </Provider>),
     // <TestHook></TestHook>,
     document.getElementById('root')
   )
