@@ -2,7 +2,7 @@
 const ADD = '+'
 const REMOVE = '-'
 
-export default function counter(state=0, action){
+function counter(state=0, action){
   switch(action.type){
     case ADD:
       return state + 1
@@ -13,14 +13,14 @@ export default function counter(state=0, action){
   }
 }
 
-export function add(){
+function add(){
   return {type: ADD}
 }
-export function remove(){
+function remove(){
   return {type: REMOVE}
 }
 // 延迟添加
-export function addAsync(){
+function addAsync(){
   // thunk 插件的作用，这里可以返回函数
   return dispatch => {
     setTimeout(() => {
@@ -29,3 +29,7 @@ export function addAsync(){
     }, 1000)
   }
 }
+
+export {counter, add, remove, addAsync}
+
+

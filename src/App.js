@@ -2,13 +2,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {add, remove, addAsync} from './index.redux'
 
+// const mapStatetoProps = (state) => {
+//   return {num: state}
+// }
+// const actionCreators = (add, remove, addAsync)=>{add, remove, addAsync}
+// App = connect(mapStatetoProps, actionCreators)(App)
+
 @connect(
-  state => ({num: state}),
+  state => ({num: state.counter}),
   {add, remove, addAsync}
 )
 
-class App extends React.Component{
+class App extends React.Component {
   render(){
+    console.log(this.props)
     return (
       <div>
         <button onClick={this.props.add}>+</button>
@@ -19,5 +26,4 @@ class App extends React.Component{
     )
   }
 }
-
 export default App
