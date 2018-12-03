@@ -9,6 +9,7 @@ import ReactDOM from "react-dom"
 import reducers from './reducers'
 import Dashboard from './Dashboard'
 import Auth from './Auth'
+import './config'
 
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),

@@ -138,5 +138,6 @@
       "jsx",
       "node"
     ]
-  }
+  },
+  "proxy": "http://localhost:9093"
 }

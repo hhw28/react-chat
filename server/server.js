@@ -11,17 +11,17 @@ const User = mongoose.model('user', new mongoose.Schema({
   user: {type: String, require: true},
   age: {type: Number, require: true}
 }))
-User.create({user: '11', age: 22}, function(err, doc){
-  if(!err){
-    console.log(doc)
-  }else{
-    console.log(err)
-  }
-})
-User.remove({user: '22'}, function(err, doc){
+// User.create({user: '11', age: 22}, function(err, doc){
+//   if(!err){
+//     console.log(doc)
+//   }else{
+//     console.log(err)
+//   }
+// })
+User.remove({user: '11'}, function(err, doc){
   console.log(doc)
 })
-User.update({user: '11'}, {'$set': {age: 12}}, function(err, doc){
+User.update({user: '张三'}, {'$set': {user: '刘嘉玲'}}, function(err, doc){
   console.log(doc)
 })
 

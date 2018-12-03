@@ -4,8 +4,6 @@ import {connect} from 'react-redux'
 import App from './App'
 import {logout} from './Auth.redux'
 
-
-
 function Bpp(){
   return <h2>b</h2>
 }
