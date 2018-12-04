@@ -29,10 +29,6 @@ class Register extends React.Component{
   handleRegister(){
     this.props.register(this.state)
   }
-  componentDidMount(){
-    console.log(this.props)
-  }
-
   render(){
     const RadioItem = Radio.RadioItem
     return (
