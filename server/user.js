@@ -6,9 +6,11 @@ const utils = require('utility')
 const _filter = {'pwd': 0, '__v': 0}
 
 Router.get('/list', function(req, res){
+  // get请求用query获取, post请求用body获取
+  const {type} = req.query
   // User.remove({}, (err, doc) => {})
-  User.find({}, function(err, doc){
-    return res.json(doc)
+  User.find({type}, function(err, doc){
+    return res.json({code: 0, data: doc})
   })
 })
 
@@ -24,7 +26,7 @@ Router.post('/update', (req, res) => {
       user: doc.user,
       type: doc.type
     }, body)
-    return res.json({code: 0, data})
+    return res.json({code: 0, data: doc})
   })
 })
 Router.post('/login', (req, res) => {
@@ -35,7 +37,7 @@ Router.post('/login', (req, res) => {
     }
     // 保存登录状态到cookie
     res.cookie('userid', doc._id)
-    return res.json({code: 0, data:doc})
+    return res.json({code: 0, data: doc})
   })
 })
 Router.post('/register', (req, res) => {

@@ -16,6 +16,7 @@ class GeniusInfo extends React.Component{
     this.state = {
       'title': '',
       'desc': '',
+      'avatar': ''
     }
   }
   onChange(key, val){
@@ -29,7 +30,7 @@ class GeniusInfo extends React.Component{
     return(
       <div>
         {/* 前往路径存在 并且 前往路径和当前路径不同，则前往 */}
-        {redirect && redirect !== path ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
         <NavBar mode="dark">Genius完善信息页</NavBar>
         <AvatarSelector selectAvatar={(imgname) => {
             this.setState({
