@@ -4,32 +4,26 @@ import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {login} from '../../redux/user.redux'
+import hoctest from '../../component/hoctest/hoctest'
 
 @connect(
   state => state.user,
   {login}
 )
+// 高阶组件test
+@hoctest
 
 class Login extends React.Component{
   constructor(props){
     super(props)
-    this.state = {
-      user: '',
-      pwd: ''
-    }
     this.register = this.register.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
   }
   register(){
     this.props.history.push('./register')
   }
-  handleChange(key, val){
-    this.setState({
-      [key]: val
-    })
-  }
   handleLogin(){
-    this.props.login(this.state)
+    this.props.login(this.props.state)
   }
   render(){
     const path = this.props.location.pathname
@@ -41,8 +35,8 @@ class Login extends React.Component{
         <WingBlank>
           {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}
           <List>
-            <InputItem onChange={val => this.handleChange('user', val)}>用户名</InputItem>
-            <InputItem onChange={val => this.handleChange('pwd', val)}>密码</InputItem>
+            <InputItem onChange={val => this.props.handleChange('user', val)}>用户名</InputItem>
+            <InputItem onChange={val => this.props.handleChange('pwd', val)}>密码</InputItem>
           </List>
           <WhiteSpace />
           <Button type="primary" onClick={this.handleLogin}>登录</Button>

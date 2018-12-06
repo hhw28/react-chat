@@ -11,7 +11,7 @@ import {connect} from 'react-redux'
 )
 
 class AuthRoute extends React.Component{
-  componentDidMount(){
+  componentWillMount(){
     // 若是在登录、注册页面，则无需获取用户信息
     const publicList = ['/login', '/register']
     const pathname = this.props.location.pathname
@@ -36,7 +36,7 @@ class AuthRoute extends React.Component{
     // 判断用户 type 身份（牛人 or boss）
   }
   render(){
-    return <p>AuthRoute</p>
+    return null
   }
 }
 export default AuthRoute
