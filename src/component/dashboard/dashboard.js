@@ -4,15 +4,11 @@ import {connect} from 'react-redux'
 import {NavBar} from 'antd-mobile'
 import NavLinkBar from '../navlink/navlink'
 import Boss from '../boss/boss'
+import Genius from '../genius/genius'
+import User from '../user/user'
 
-function Genius(){
-  return <p>Genius</p>
-}
 function Msg(){
   return <p>Msg</p>
-}
-function User(){
-  return <p>User</p>
 }
 
 @connect(
@@ -20,21 +16,24 @@ function User(){
 )
 
 class Dashboard extends React.Component{
+  componentDidMount(){
+
+  }
   render(){
     const pathName = this.props.location.pathname
     const user = this.props.user
     const navList = [{
         path: '/genius',
-        text: '牛人',
-        icon: 'boss',
-        title: '牛人列表',
+        text: 'boss',
+        icon: 'job',
+        title: 'boss列表',
         component: Genius,
         hide: user.type === 'boss',
       }, {
         path: '/boss',
-        text: 'boss',
-        icon: 'job',
-        title: 'boss列表',
+        text: '牛人',
+        icon: 'boss',
+        title: '牛人列表',
         component: Boss,
         hide: user.type === 'genius',
       }, {

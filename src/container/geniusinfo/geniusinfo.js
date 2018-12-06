@@ -30,7 +30,7 @@ class GeniusInfo extends React.Component{
     return(
       <div>
         {/* 前往路径存在 并且 前往路径和当前路径不同，则前往 */}
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+        {redirect && redirect !== path ? <Redirect to={this.props.redirectTo}></Redirect> : null}
         <NavBar mode="dark">Genius完善信息页</NavBar>
         <AvatarSelector selectAvatar={(imgname) => {
             this.setState({
