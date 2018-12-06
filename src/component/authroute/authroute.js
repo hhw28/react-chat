@@ -36,9 +36,7 @@ class AuthRoute extends React.Component{
     // 判断用户 type 身份（牛人 or boss）
   }
   render(){
-    return (
-      <p>AuthRoute</p>
-    )
+    return <p>AuthRoute</p>
   }
 }
 export default AuthRoute

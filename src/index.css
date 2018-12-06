@@ -3,7 +3,7 @@
   color: #f50;
   padding-left: 16px;
 }
-.fixd-header.am-navbar{
+.fixed-header.am-navbar{
   position: fixed;
   top: 0;
   width: 100%;

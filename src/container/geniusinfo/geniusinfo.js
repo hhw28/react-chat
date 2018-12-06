@@ -25,7 +25,7 @@ class GeniusInfo extends React.Component{
     })
   }
   render(){
-    const path = this.props.location
+    const path = this.props.location.pathname
     const redirect = this.props.redirectTo
     return(
       <div>

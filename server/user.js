@@ -22,7 +22,6 @@ Router.post('/update', (req, res) => {
   const body = req.body
   // 找到用户并且更新数据
   User.findByIdAndUpdate(userid, body, (err, doc) => {
-    console.log('find')
     const data = Object.assign({}, {
       user: doc.user,
       type: doc.type
@@ -33,6 +32,7 @@ Router.post('/update', (req, res) => {
 Router.post('/login', (req, res) => {
   const {user, pwd} = req.body
   User.findOne({user, pwd:md5Pwd(pwd)}, _filter, (err, doc) => {
+    console.log()
     if(!doc){
       return res.json({code: 1, msg: '用户名或密码错误'})
     }

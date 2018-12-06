@@ -4,10 +4,12 @@ import {getRedirectPath} from '../util'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
+const LOGOUT = 'LOGOUT'
 const initState = {
   msg: '',
   user: '',
-  type: ''
+  type: '',
+  redirectTo: ''
 }
 export function user(state = initState, action){
   switch(action.type){
@@ -20,13 +22,14 @@ export function user(state = initState, action){
       }
     case LOAD_DATA:
       return {...state, ...action.payload}
+    case LOGOUT:
+      return {...initState, redirectTo: '/login'}
     case ERROR_MSG:
       return {...state, isAuth:false, msg:action.msg}
     default:
       return state
   }
 }
-
 
 function authSuccess(obj){
   // 过滤密码，在前端不显示
@@ -39,7 +42,12 @@ function errorMsg(msg){
 export function loadData(userinfo){
   return {type:LOAD_DATA, payload: userinfo}
 }
+export function logoutSumit(){
+  return {type:LOGOUT}
+}
+
 export function update(data){
+  console.log(data)
   return dispatch => {
     axios.post('/user/update', data)
       .then(res => {

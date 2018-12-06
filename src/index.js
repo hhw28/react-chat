@@ -11,7 +11,7 @@ import Register from './container/register/register'
 import BossInfo from './container/bossinfo/bossinfo'
 import GeniusInfo from './container/geniusinfo/geniusinfo'
 import reducers from './reducers'
-// import Authroute from './component/authroute/authroute'
+import AuthRoute from './component/authroute/authroute'
 import Dashboard from './component/dashboard/dashboard'
 import './config'
 import './index.css'
@@ -25,7 +25,7 @@ ReactDOM.render(
   (<Provider store={store}>
     <BrowserRouter>
       <div>
-        {/* <Authroute></Authroute> */}
+        <AuthRoute></AuthRoute>
         {/* <Switch>将遍历children元素（路由），然后只匹配第一个符合的pathname，若无符合的，则匹配首个无pathname项*/}
         <Switch>
           <Route path='/bossinfo' component={BossInfo}></Route>

@@ -16,9 +16,6 @@ function Msg(){
 )
 
 class Dashboard extends React.Component{
-  componentDidMount(){
-
-  }
   render(){
     const pathName = this.props.location.pathname
     const user = this.props.user
@@ -52,7 +49,7 @@ class Dashboard extends React.Component{
     ]
     return (
       <div>
-        <NavBar className='fixd-header' mode='dard'>{navList.find(item => item.path === pathName).title}</NavBar>
+        <NavBar className='fixed-header' mode='dard'>{navList.find(item => item.path === pathName).title}</NavBar>
         <div style={{marginTop: 45}}>
           <Switch>
             {navList.map(item => (

@@ -32,9 +32,11 @@ class Login extends React.Component{
     this.props.login(this.state)
   }
   render(){
+    const path = this.props.location.pathname
+    const redirect = this.props.redirectTo
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}></Redirect> : null}
+        {redirect && redirect !== path ? <Redirect to={this.props.redirectTo}></Redirect> : null}
         <Logo></Logo>
         <WingBlank>
           {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}
@@ -42,6 +44,7 @@ class Login extends React.Component{
             <InputItem onChange={val => this.handleChange('user', val)}>用户名</InputItem>
             <InputItem onChange={val => this.handleChange('pwd', val)}>密码</InputItem>
           </List>
+          <WhiteSpace />
           <Button type="primary" onClick={this.handleLogin}>登录</Button>
           <WhiteSpace />
           <Button onClick={this.register} type="primary" >注册</Button>
