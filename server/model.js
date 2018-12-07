@@ -6,9 +6,9 @@ mongoose.connect(DB_URL, { useNewUrlParser: true })
 const models = {
   // 用户
   user: {
-    'user': {'type': String, require: true},
-    'pwd': {'type': String, require: true},
-    'type': {'type': String, require: true},
+    'user': {'type': String, 'require': true},
+    'pwd': {'type': String, 'require': true},
+    'type': {'type': String, 'require': true},
     // 头像
     'avatar': {'type': String},
     // 个人简介
@@ -20,8 +20,14 @@ const models = {
     'money': {'type': String},
   },
   // 聊天信息
-  char: {
-
+  chat: {
+    'chatid': {'type': String, 'require': true},
+    'from': {'type': String, 'require': true},
+    'to': {'type': String, 'require': true},
+    // 是否被读取
+    'read': {'type': Boolean, 'default': false},
+    'content': {'type': String, 'require': true, 'default': ''},
+    'create_time': {'type': Number, 'default': new Date().getTime()}
   }
 }
 for(let item in models){
