@@ -1,5 +1,5 @@
 import React from 'react'
-import {List, InputItem, NavBar, Icon} from 'antd-mobile'
+import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {sendMsg, getMsgList, receiveMsg} from '../../redux/chat.redux'
 import {getChatId} from '../../util'
@@ -16,7 +16,7 @@ class Chat extends React.Component{
     super(props)
     this.state = {
       text: '',
-      msg: []
+      showEmoji: false
     }
   }
   componentDidMount(){
@@ -25,6 +25,12 @@ class Chat extends React.Component{
       this.props.getMsgList()
       this.props.receiveMsg()
     }
+  }
+  // 解决emoji表情使用的 Grid标签轮播状态首屏只有一行的情况
+  fixCarousel(){
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'))
+    }, 0)
   }
   handleSubmit(){
     const from = this.props.user._id
@@ -35,6 +41,9 @@ class Chat extends React.Component{
     this.setState({text: ''})
   }
   render(){
+    // emojipedia
+    const emoji = '🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 😃 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 🤷 🎄 🌟 ❄️ 🎁 🎅 🦌 🤨 🧐 🤩 🧑 🤮 🤲 '
+                    .split(' ').filter(v => v).map(v => ({text: v}))
     // 聊天对象
     const user = this.props.match.params.user
     const users = this.props.chat.users
@@ -71,9 +80,25 @@ class Chat extends React.Component{
               onChange={value => {
                 this.setState({text: value})
               }}
-              extra={<span onClick={() => {this.handleSubmit()}}>发送</span>}
+              extra={
+                <div>
+                  <span style={{marginRight:10}} onClick={() => {
+                    this.setState({showEmoji: !this.state.showEmoji})
+                    this.fixCarousel()
+                  }}>😃</span>
+                  <span onClick={() => {this.handleSubmit()}}>发送</span>
+                </div>
+              }
             ></InputItem>
           </List>
+          {this.state.showEmoji ? <Grid
+            data={emoji} columnNum={9} carouselMaxRow={4} isCarousel={true}
+            onClick={el => {
+              this.setState({
+                text: this.state.text + el.text
+              })
+            }}
+          /> : null}
         </div>
       </div>
     )
