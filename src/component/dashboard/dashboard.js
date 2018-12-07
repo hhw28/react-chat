@@ -7,10 +7,7 @@ import NavLinkBar from '../navlink/navlink'
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
 import User from '../user/user'
-
-function Msg(){
-  return <p>Msg</p>
-}
+import Msg from '../msg/msg'
 
 @connect(
   state => state,

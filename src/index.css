@@ -44,3 +44,15 @@
 #chat-page .am-grid-text{
   margin-top: 0;
 }
+
+/* #chat-page{
+  display: flex;
+  direction: column;
+} */
+#chat-page .chat-page-body{
+  width:100%;
+  height: calc(100 - 20);
+  position: absolute;
+  overflow: hidden;
+}
+

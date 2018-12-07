@@ -29,7 +29,6 @@ class BossInfo extends React.Component{
   render(){
     const path = this.props.location.pathname
     const redirect = this.props.redirectTo
-    console.log(path, redirect)
     return(
       <div>
         {/* 前往路径存在 并且 前往路径和当前路径不同，则前往 */}

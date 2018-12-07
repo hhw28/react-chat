@@ -10,7 +10,8 @@ const _filter = {'pwd': 0, '__v': 0}
 Router.get('/list', function(req, res){
   // get请求用query获取, post请求用body获取
   const {type} = req.query
-  // User.remove({}, (err, doc) => {})
+  // User.remove({'user': user}, (err, doc) => {})
+  // Chat.remove({}, (err, doc) => {console.log('delete')})
   User.find({type}, function(err, doc){
     return res.json({code: 0, data: doc})
   })

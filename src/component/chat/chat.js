@@ -59,19 +59,21 @@ class Chat extends React.Component{
         <NavBar mode='dark' icon={<Icon type="left" />} onLeftClick={() => this.props.history.goBack()}>
           {users[user].name}
         </NavBar>
-        {/* 若是聊天对象发送的消息，则显示在左边，自己的在右边 */}
-        {chatMsg.map(item => {
-          const avatar = require(`../img/${users[item.from].avatar}.png`)
-          return item.from === user ? (
-            <List key={item._id}>
-              <Item thumb={avatar}>{item.content}</Item>
-            </List>
-          ) : (
-            <List key={item._id}>
-              <Item className='chat-me' extra={<img src={avatar} alt=''/>}>{item.content}</Item>
-            </List>
-          )
-        })}
+        <div className='chat-page-body'>
+          {/* 若是聊天对象发送的消息，则显示在左边，自己的在右边 */}
+          {chatMsg.map(item => {
+            const avatar = require(`../img/${users[item.from].avatar}.png`)
+            return item.from === user ? (
+              <List key={item._id}>
+                <Item thumb={avatar}>{item.content}</Item>
+              </List>
+            ) : (
+              <List key={item._id}>
+                <Item className='chat-me' extra={<img src={avatar} alt=''/>}>{item.content}</Item>
+              </List>
+            )
+          })}
+        </div>
         <div className='stick-footer'>
           <List>
             <InputItem
@@ -82,10 +84,13 @@ class Chat extends React.Component{
               }}
               extra={
                 <div>
-                  <span style={{marginRight:10}} onClick={() => {
-                    this.setState({showEmoji: !this.state.showEmoji})
-                    this.fixCarousel()
-                  }}>😃</span>
+                  <span style={{marginRight:10}}
+                        onClick={() => {
+                          this.setState({showEmoji: !this.state.showEmoji})
+                          this.fixCarousel()
+                        }}
+                        role="img" aria-label="smile"
+                  >😃</span>
                   <span onClick={() => {this.handleSubmit()}}>发送</span>
                 </div>
               }

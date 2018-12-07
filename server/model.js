@@ -27,7 +27,7 @@ const models = {
     // 是否被读取
     'read': {'type': Boolean, 'default': false},
     'content': {'type': String, 'require': true, 'default': ''},
-    'create_time': {'type': Number, 'default': new Date().getTime()}
+    'create_time': {'type': Number, 'default': ''}
   }
 }
 for(let item in models){
