@@ -4,22 +4,31 @@ const model = require('./model')
 const User = model.getModel('user')
 const Chat = model.getModel('chat')
 const utils = require('utility')
+// 过滤密码不在前端显示
 const _filter = {'pwd': 0, '__v': 0}
 
 Router.get('/list', function(req, res){
   // get请求用query获取, post请求用body获取
   const {type} = req.query
-  // User.remove({user: '1234'}, (err, doc) => {})
+  // User.remove({}, (err, doc) => {})
   User.find({type}, function(err, doc){
     return res.json({code: 0, data: doc})
   })
 })
 Router.get('/getmsglist', (req, res) => {
-  const user = req.cookies.user
-  Chat.find({}, (err, doc) => {
-    if(!err){
-      return res.json({code: 0, msgs: doc})
-    }
+  const user = req.cookies.userid
+  User.find({}, (err,userdoc) => {
+    let users = {}
+    // 把每个用户的 _id 都添加头像和用户名
+    userdoc.forEach(item => {
+      users[item._id] = {name: item.user, avatar: item.avatar}
+    })
+    // 找出用户发送msg 和 发给用户的msg
+    Chat.find({'$or': [{from: user}, {to: user}]}, (err, doc) => {
+      if(!err){
+        return res.json({code: 0, msgs: doc, users: users})
+      }
+    })
   })
 })
 
@@ -41,7 +50,6 @@ Router.post('/update', (req, res) => {
 Router.post('/login', (req, res) => {
   const {user, pwd} = req.body
   User.findOne({user, pwd:md5Pwd(pwd)}, _filter, (err, doc) => {
-    console.log()
     if(!doc){
       return res.json({code: 1, msg: '用户名或密码错误'})
     }
@@ -85,7 +93,6 @@ Router.get('/info', (req, res) => {
     }
     return res.json({code: 0, data: doc})
   })
-
 })
 
 module.exports = Router

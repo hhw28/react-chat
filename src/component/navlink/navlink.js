@@ -2,8 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {TabBar} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 @withRouter
+@connect(
+  state => state.chat
+)
 
 class NavLinkBar extends React.Component{
   //属性检测，使用NavLinkBar组件必须传入data数据，并且必须为array类型
@@ -17,6 +21,7 @@ class NavLinkBar extends React.Component{
       <TabBar>
         {navList.map(item => (
           <TabBar.Item
+            badge={item.path === '/msg' ? this.props.unread : ''}
             key={item.path} title={item.text}
             icon={{uri: require(`./img/${item.icon}.png`)}}
             selectedIcon={{uri: require(`./img/${item.icon}-active.png`)}}

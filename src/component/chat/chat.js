@@ -1,13 +1,14 @@
 import React from 'react'
-import {List, InputItem, NavBar} from 'antd-mobile'
+import {List, InputItem, NavBar, Icon} from 'antd-mobile'
 import {connect} from 'react-redux'
-import {getMsgList, sendMsg, receiveMsg} from '../../redux/chat.redux'
+import {sendMsg, getMsgList, receiveMsg} from '../../redux/chat.redux'
+import {getChatId} from '../../util'
 
 const Item = List.Item
 
 @connect(
   state => state,
-  {getMsgList, sendMsg, receiveMsg}
+  {sendMsg, getMsgList, receiveMsg}
 )
 
 class Chat extends React.Component{
@@ -19,8 +20,11 @@ class Chat extends React.Component{
     }
   }
   componentDidMount(){
-    this.props.getMsgList()
-    this.props.receiveMsg()
+    // 若进入或刷新 chat页面没有获取到消息长度，则发起消息请求
+    if(!this.props.chat.chatmsg.length){
+      this.props.getMsgList()
+      this.props.receiveMsg()
+    }
   }
   handleSubmit(){
     const from = this.props.user._id
@@ -31,20 +35,31 @@ class Chat extends React.Component{
     this.setState({text: ''})
   }
   render(){
+    // 聊天对象
     const user = this.props.match.params.user
+    const users = this.props.chat.users
+    // 如果聊天对象不存在，则直接return，不再渲染页面
+    if(!users[user]){
+      return null
+    }
+    // 过滤出chatid相同的聊天信息
+    const chatID = getChatId(user, this.props.user._id)
+    const chatMsg = this.props.chat.chatmsg.filter(item => item.chatid === chatID)
     return (
       <div id='chat-page'>
-        <NavBar mode='dark'>
-          {user}
+        <NavBar mode='dark' icon={<Icon type="left" />} onLeftClick={() => this.props.history.goBack()}>
+          {users[user].name}
         </NavBar>
-        {this.props.chat.chatmsg.map(item => {
+        {/* 若是聊天对象发送的消息，则显示在左边，自己的在右边 */}
+        {chatMsg.map(item => {
+          const avatar = require(`../img/${users[item.from].avatar}.png`)
           return item.from === user ? (
             <List key={item._id}>
-              <Item>{item.content}</Item>
+              <Item thumb={avatar}>{item.content}</Item>
             </List>
           ) : (
             <List key={item._id}>
-              <Item className='chat-me' extra={'avatar'}>{item.content}</Item>
+              <Item className='chat-me' extra={<img src={avatar} alt=''/>}>{item.content}</Item>
             </List>
           )
         })}

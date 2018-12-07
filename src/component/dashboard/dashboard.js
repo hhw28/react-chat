@@ -1,6 +1,7 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {getMsgList, receiveMsg} from '../../redux/chat.redux'
 import {NavBar} from 'antd-mobile'
 import NavLinkBar from '../navlink/navlink'
 import Boss from '../boss/boss'
@@ -12,10 +13,18 @@ function Msg(){
 }
 
 @connect(
-  state => state
+  state => state,
+  {getMsgList, receiveMsg}
 )
 
 class Dashboard extends React.Component{
+  componentDidMount(){
+    // 若进入或刷新 chat页面没有获取到消息长度，则发起消息请求
+    if(!this.props.chat.chatmsg.length){
+      this.props.getMsgList()
+      this.props.receiveMsg()
+    }
+  }
   render(){
     const pathName = this.props.location.pathname
     const user = this.props.user
