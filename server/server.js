@@ -7,6 +7,7 @@ const userRouter = require('./user')
 
 const app = express()
 const port = 9093
+const path = require('path')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
@@ -23,6 +24,18 @@ io.on('connection', function(socket){
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use('/user', userRouter)
+
+
+// 设置中间件
+app.use((req, res, next) => {
+  if(req.url.startsWith('/user/') || req.url.startsWith('/static/')){
+    return next()
+  }
+  console.log('path',path.resolve('build/index.html'))
+  return res.sendFile(path.resolve('build/index.html'))
+})
+// 设置静态资源地址
+app.use('/', express.static(path.resolve('build')))
 
 server.listen(port, function(){
   console.log('Node app start at port ' + port)

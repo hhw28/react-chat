@@ -36,7 +36,7 @@ class Login extends React.Component{
           {this.props.msg ? <p className="error-msg">{this.props.msg}</p> : null}
           <List>
             <InputItem onChange={val => this.props.handleChange('user', val)}>用户名</InputItem>
-            <InputItem onChange={val => this.props.handleChange('pwd', val)}>密码</InputItem>
+            <InputItem onChange={val => this.props.handleChange('pwd', val)} type='password'>密码</InputItem>
           </List>
           <WhiteSpace />
           <Button type="primary" onClick={this.handleLogin}>登录</Button>

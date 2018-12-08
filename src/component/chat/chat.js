@@ -3,6 +3,7 @@ import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {sendMsg, getMsgList, receiveMsg, readMsg} from '../../redux/chat.redux'
 import {getChatId} from '../../util'
+import QueueAnim from 'rc-queue-anim'
 
 const Item = List.Item
 
@@ -63,7 +64,8 @@ class Chat extends React.Component{
         <NavBar mode='dark' icon={<Icon type="left" />} onLeftClick={() => this.props.history.goBack()}>
           {users[user].name}
         </NavBar>
-        <div className='chat-page-body'>
+
+        <QueueAnim delay={50} type='left'>
           {/* 若是聊天对象发送的消息，则显示在左边，自己的在右边 */}
           {chatMsg.map(item => {
             const avatar = require(`../img/${users[item.from].avatar}.png`)
@@ -77,7 +79,8 @@ class Chat extends React.Component{
               </List>
             )
           })}
-        </div>
+        </QueueAnim>
+
         <div className='stick-footer'>
           <List>
             <InputItem
