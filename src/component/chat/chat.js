@@ -1,14 +1,14 @@
 import React from 'react'
 import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile'
 import {connect} from 'react-redux'
-import {sendMsg, getMsgList, receiveMsg} from '../../redux/chat.redux'
+import {sendMsg, getMsgList, receiveMsg, readMsg} from '../../redux/chat.redux'
 import {getChatId} from '../../util'
 
 const Item = List.Item
 
 @connect(
   state => state,
-  {sendMsg, getMsgList, receiveMsg}
+  {sendMsg, getMsgList, receiveMsg, readMsg}
 )
 
 class Chat extends React.Component{
@@ -25,6 +25,10 @@ class Chat extends React.Component{
       this.props.getMsgList()
       this.props.receiveMsg()
     }
+  }
+  componentWillUnmount(){
+    const to = this.props.match.params.user
+    this.props.readMsg(to)
   }
   // 解决emoji表情使用的 Grid标签轮播状态首屏只有一行的情况
   fixCarousel(){
