@@ -64,11 +64,11 @@ class Chat extends React.Component{
         <NavBar mode='dark' icon={<Icon type="left" />} onLeftClick={() => this.props.history.goBack()}>
           {users[user].name}
         </NavBar>
-
-        <QueueAnim delay={50} type='left'>
+        <QueueAnim delay={50} type='left' className='main'>
           {/* 若是聊天对象发送的消息，则显示在左边，自己的在右边 */}
           {chatMsg.map(item => {
-            const avatar = require(`../img/${users[item.from].avatar}.png`)
+            const avatarNum = users[item.from].avatar === undefined ? 0 : users[item.from].avatar
+            const avatar = require(`../img/${avatarNum}.png`)
             return item.from === user ? (
               <List key={item._id}>
                 <Item thumb={avatar}>{item.content}</Item>

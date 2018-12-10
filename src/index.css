@@ -3,6 +3,9 @@
   color: #f50;
   padding-left: 16px;
 }
+.avatar-error{
+  color: #f50;
+}
 .fixed-header.am-navbar{
   position: fixed;
   top: 0;
@@ -19,17 +22,7 @@
 .page-content{
   padding: 45px 5px;
 }
-.stick-footer{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-.am-navbar{
-  position: fixed;
-  top:0;
-  width: 100%;
-  z-index: 99;
-}
+
 
 #chat-page .chat-me .am-list-extra{
   flex-basis: auto;
@@ -45,14 +38,41 @@
   margin-top: 0;
 }
 
-/* #chat-page{
-  display: flex;
-  direction: column;
-} */
 #chat-page .chat-page-body{
   width:100%;
   height: calc(100 - 20);
   position: absolute;
   overflow: hidden;
 }
+#chat-page .am-navbar.am-navbar-dark{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+#chat-page .main{
+  position: fixed;
+  width: 100%;
+  overflow: auto;
+  margin-top: 45px;
+  margin-bottom: 45px;
+  height: calc(100vh - 90px);
+}
+#chat-page .stick-footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 
+.am-navbar-light{
+  background: rgba(0, 0, 0, 0)
+}
+.logo-container{
+  margin-top: 20px;
+}
+#login .logo-container{
+  margin-top: 65px;
+}
+.am-list-item .am-input-extra{
+  line-height: 2;
+}

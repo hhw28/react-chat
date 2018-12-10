@@ -24,6 +24,7 @@ class User extends React.Component{
       { text: '确定', onPress: () => {
         browserCookie.erase('userid')
         this.props.logoutSumit()
+        this.props.history.push('/login')
       }}
     ])
   }
@@ -32,8 +33,7 @@ class User extends React.Component{
       <div>
         <Result
           img={<img src={require(`../img/${this.props.avatar}.png`)} style={{width: 60}} alt=''/>}
-          title={this.props.title}
-          message={this.props.company}
+          title={this.props.user}
         />
         <WhiteSpace></WhiteSpace>
         <List>

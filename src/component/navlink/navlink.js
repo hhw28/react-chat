@@ -3,16 +3,21 @@ import PropTypes from 'prop-types'
 import {TabBar} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {getMsgList} from '../../redux/chat.redux'
 
 @withRouter
 @connect(
-  state => state.chat
+  state => state.chat,
+  {getMsgList}
 )
 
 class NavLinkBar extends React.Component{
   //属性检测，使用NavLinkBar组件必须传入data数据，并且必须为array类型
   static propTypes = {
     data: PropTypes.array.isRequired
+  }
+  componentDidMount(){
+    this.props.getMsgList()
   }
   render(){
     const navList = this.props.data.filter(item => !item.hide)

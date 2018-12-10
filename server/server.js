@@ -1,3 +1,8 @@
+// import React from 'react'
+// 需要在package.json > script中设置以下代码
+// "server": "NODE_ENV=test nodemon --exec babel-node server/server.js"
+// 才能在node环境中使用 import 语法
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -8,10 +13,10 @@ const userRouter = require('./user')
 const app = express()
 const port = 9093
 const path = require('path')
-const server = require('http').Server(app)
+const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
-io.on('connection', function(socket){
+io.on('connection', (socket, req) => {
   socket.on('sendmsg', (data) => {
     const {from, to, msg} = data
     const chatid = [from, to].sort().join('_')

@@ -18,6 +18,9 @@ class AuthRoute extends React.Component{
     if(publicList.indexOf(pathname) > -1){
       return null
     }
+    if(pathname === '/'){
+      return this.props.location.pathname = '/login'
+    }
     // 获取用户信息
     axios.get('/user/info')
       .then(res => {

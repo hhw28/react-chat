@@ -7,10 +7,11 @@ const utils = require('utility')
 // 过滤密码不在前端显示
 const _filter = {'pwd': 0, '__v': 0}
 
+
 Router.get('/list', function(req, res){
   // get请求用query获取, post请求用body获取
   const {type} = req.query
-  // User.remove({'user': user}, (err, doc) => {})
+  // User.remove({'user':'bosswh'}, (err, doc) => {})
   // Chat.remove({}, (err, doc) => {console.log('delete')})
   User.find({type}, function(err, doc){
     return res.json({code: 0, data: doc})
@@ -20,7 +21,7 @@ Router.get('/list', function(req, res){
 Router.post('/readmsg', (req, res) => {
   const user = req.cookies.userid
   const {from} = req.body
-  Chat.update({from, to:user}, {'$set':{read: true}}, {'multi': true}, (err, doc) => {
+  Chat.updateMany({from, to:user}, {'$set':{read: true}}, {'multi': true}, (err, doc) => {
     if(!err){
       return res.json({code: 0, data: doc})
     }
@@ -52,12 +53,16 @@ Router.post('/update', (req, res) => {
   }
   const body = req.body
   // 找到用户并且更新数据
-  User.findByIdAndUpdate(userid, body, (err, doc) => {
-    const data = Object.assign({}, {
+  User.findOneAndUpdate({'_id':userid}, body, (err, doc) => {
+    Object.assign({}, {
       user: doc.user,
       type: doc.type
     }, body)
-    return res.json({code: 0, data: doc})
+  })
+  User.findOne({'_id':userid}, (err, doc) => {
+    if(!err){
+      return res.json({code: 0, data: doc})
+    }
   })
 })
 Router.post('/login', (req, res) => {

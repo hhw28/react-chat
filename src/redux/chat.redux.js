@@ -1,6 +1,8 @@
 import axios from 'axios'
 import io from 'socket.io-client'
 const socket = io('ws://localhost:9093')
+// const socket = io('http://wanghuan.tech:9093')
+// const socket = io()
 
 // 获取聊天列表
 const MSG_LIST = 'MSG_LIST'
@@ -35,7 +37,8 @@ export function chat(state=initState, action){
     case MSG_READ:
       const {from, num} = action.payload
       return {
-        ...state, unread: state.unread - num,
+        ...state,
+        unread: state.unread - num,
         chatmsg: state.chatmsg.map(v => ({...v, read: from === v.from ? true : v.read}))
       }
     default:

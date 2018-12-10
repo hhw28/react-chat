@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar, InputItem, TextareaItem, Button} from 'antd-mobile'
+import {NavBar, InputItem, TextareaItem, Button, WhiteSpace} from 'antd-mobile'
 import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -38,8 +38,10 @@ class GeniusInfo extends React.Component{
             })
           }}
         ></AvatarSelector>
+
         <InputItem onChange={(val) => this.onChange('title', val)}>求职岗位</InputItem>
         <TextareaItem rows={3} autoHeight title="个人简介" onChange={(val) => this.onChange('desc', val)}></TextareaItem>
+        <WhiteSpace />
         <Button type='primary' onClick={() => {this.props.update(this.state)}}>保存</Button>
       </div>
     )

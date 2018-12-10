@@ -14,6 +14,7 @@ const initState = {
 export function user(state = initState, action){
   switch(action.type){
     case AUTH_SUCCESS:
+      console.log(action.payload)
       return {
         ...state,
         msg:'',
@@ -23,7 +24,7 @@ export function user(state = initState, action){
     case LOAD_DATA:
       return {...state, ...action.payload}
     case LOGOUT:
-      return {...initState, redirectTo: '/login'}
+      return {...initState}
     case ERROR_MSG:
       return {...state, isAuth:false, msg:action.msg}
     default:
@@ -47,11 +48,12 @@ export function logoutSumit(){
 }
 
 export function update(data){
-  console.log(data)
+  console.log('update: ',data)
   return dispatch => {
     axios.post('/user/update', data)
       .then(res => {
         if(res.status === 200 && res.data.code === 0){
+          console.log('后台update ',res.data.data)
           dispatch(authSuccess(res.data.data))
         }else{
           dispatch(errorMsg(res.data.msg))

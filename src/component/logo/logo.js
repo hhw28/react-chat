@@ -5,7 +5,7 @@ class Logo extends React.Component{
   render(){
     return (
       <div className="logo-container">
-        <img src={require('./login.jpg')} alt=""/>
+        <img src={require(`.${this.props.path}.png`)} alt=""/>
       </div>
     )
   }
