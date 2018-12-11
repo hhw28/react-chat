@@ -74,5 +74,7 @@
   margin-top: 65px;
 }
 .am-list-item .am-input-extra{
-  line-height: 2;
+  display: inline-block;
+  height: 20px;
+  line-height: 1.3;
 }

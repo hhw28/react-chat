@@ -11,7 +11,7 @@ const _filter = {'pwd': 0, '__v': 0}
 Router.get('/list', function(req, res){
   // get请求用query获取, post请求用body获取
   const {type} = req.query
-  // User.remove({'user':'bosswh'}, (err, doc) => {})
+  User.remove({'user':'test-genius'}, (err, doc) => {})
   // Chat.remove({}, (err, doc) => {console.log('delete')})
   User.find({type}, function(err, doc){
     return res.json({code: 0, data: doc})
@@ -69,7 +69,7 @@ Router.post('/login', (req, res) => {
   const {user, pwd} = req.body
   User.findOne({user, pwd:md5Pwd(pwd)}, _filter, (err, doc) => {
     if(!doc){
-      return res.json({code: 1, msg: '用户名或密码错误'})
+      return res.json({code: 1, msg: '用户名未注册或密码错误'})
     }
     // 保存登录状态到cookie
     res.cookie('userid', doc._id)

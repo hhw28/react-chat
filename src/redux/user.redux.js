@@ -14,7 +14,6 @@ const initState = {
 export function user(state = initState, action){
   switch(action.type){
     case AUTH_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         msg:'',
@@ -48,12 +47,11 @@ export function logoutSumit(){
 }
 
 export function update(data){
-  console.log('update: ',data)
   return dispatch => {
     axios.post('/user/update', data)
       .then(res => {
         if(res.status === 200 && res.data.code === 0){
-          console.log('后台update ',res.data.data)
+          console.log(res.data.data)
           dispatch(authSuccess(res.data.data))
         }else{
           dispatch(errorMsg(res.data.msg))

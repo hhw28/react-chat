@@ -5,7 +5,7 @@ const Item = List.Item
 const Brief = Item.Brief
 
 @connect(
-  state => state
+  state => state,
 )
 
 class Msg extends React.Component{

@@ -20,8 +20,11 @@ io.on('connection', (socket, req) => {
   socket.on('sendmsg', (data) => {
     const {from, to, msg} = data
     const chatid = [from, to].sort().join('_')
+    console.log('sendmsg')
     Chat.create({chatid, from, to, content:msg, create_time:new Date().getTime()}, (err, doc) => {
-      io.emit('receivemsg', Object.assign({}, doc._doc))
+      console.log('create')
+      io.emit('receivemsg', doc)
+      console.log('已发送')
     })
   })
 })

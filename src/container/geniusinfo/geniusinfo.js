@@ -18,6 +18,7 @@ class GeniusInfo extends React.Component{
       'desc': '',
       'avatar': ''
     }
+    this.onChange = this.onChange.bind(this)
   }
   onChange(key, val){
     this.setState({

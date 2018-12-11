@@ -30,6 +30,7 @@ class Chat extends React.Component{
   componentWillUnmount(){
     const to = this.props.match.params.user
     this.props.readMsg(to)
+    this.props.getMsgList()
   }
   // 解决emoji表情使用的 Grid标签轮播状态首屏只有一行的情况
   fixCarousel(){

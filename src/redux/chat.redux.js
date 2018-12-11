@@ -29,6 +29,7 @@ export function chat(state=initState, action){
     case MSG_RECV:
       // 当收到消息的用户，为当前登录的用户时，未读消息 +1
       const n = action.payload.msg.to === action.payload.userid ? 1 : 0
+      console.log(action.payload.msg)
       return {
         ...state,
         chatmsg: [...state.chatmsg, action.payload.msg],
